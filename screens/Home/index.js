@@ -79,13 +79,13 @@ function HomeScreen() {
           </View>
           <View style={styles.potInfo}>
             <Text style={styles.timeInfoText}>
-              {nextWateringTime.days && "0"} days
+              { nextWateringTime ? nextWateringTime.days : "0"} days
             </Text>
             <Text style={styles.timeInfoText}>
-              {nextWateringTime.hours && "0"} hours
+              {nextWateringTime ? nextWateringTime.hours : "0"} hours
             </Text>
             <Text style={styles.timeInfoText}>
-              {nextWateringTime.minutes && "0"} minutes
+              {nextWateringTime ? nextWateringTime.minutes : "0"} minutes
             </Text>
             <Text style={styles.infoTitle}>Next watering</Text>
           </View>
