@@ -44,10 +44,13 @@ function HomeScreen() {
   };
 
   useEffect(() => {
-    getenvironmentData();
-    convertMinutesToReadableFormat(calculateNextWateringTime());
-
+    const interval = setInterval(() => {
+      getenvironmentData();
+      convertMinutesToReadableFormat(calculateNextWateringTime());
+    }, 2000);
     console.log(nextWateringTime);
+
+    return () => clearInterval(interval);
   }, []);
 
   const convertMinutesToReadableFormat = (totalMinutes) => {
@@ -79,7 +82,7 @@ function HomeScreen() {
           </View>
           <View style={styles.potInfo}>
             <Text style={styles.timeInfoText}>
-              { nextWateringTime ? nextWateringTime.days : "0"} days
+              {nextWateringTime ? nextWateringTime.days : "0"} days
             </Text>
             <Text style={styles.timeInfoText}>
               {nextWateringTime ? nextWateringTime.hours : "0"} hours
@@ -99,12 +102,6 @@ function HomeScreen() {
         />
         <View style={styles.bottomContainerInfoWrapper}>
           <View>
-            <Text style={[styles.infoText, { color: "black" }]}>10 %</Text>
-            <Text style={[styles.infoTitle, { color: "#b5b5b5" }]}>
-              Water Tank
-            </Text>
-          </View>
-          <View>
             <Text style={[styles.infoText, { color: "black" }]}>
               {environmentInformation.light <= 200 ? "Dark" : "Bright"}
             </Text>
@@ -121,7 +118,7 @@ function HomeScreen() {
             </Text>
           </View>
         </View>
-        <Text style={styles.warningText}> Fill the water Tank</Text>
+        <Text style={styles.warningText}> Soil humidity is fine</Text>
       </View>
     </View>
   );
@@ -164,11 +161,11 @@ const styles = StyleSheet.create({
   bottomContainerInfoWrapper: { marginTop: 70, flexDirection: "row", gap: 40 },
   warningText: {
     fontSize: 20,
-    color: "orange",
+    color: "green",
     position: "absolute",
     right: 30,
     top: 45,
-    borderLeftColor: "orange",
+    borderLeftColor: "green",
     borderLeftWidth: 2,
     paddingLeft: 5,
   },
